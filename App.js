@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  StyleSheet,
-  TextInput,
-  View,
-  Text,
-  FlatList,
-} from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { Button, StyleSheet, View, Text, FlatList } from 'react-native';
 import ContactItem from './components/ContactItem';
+import ContactInput from './components/ContactInput';
 
 export default function App() {
   const [name, setName] = useState('');
@@ -45,29 +38,18 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputView}>
-        <Feather name='user' size={24} color='black' />
-        <TextInput
-          placeholder='Nome'
-          style={styles.textInput}
-          onChangeText={handleChangeName}
-          value={name}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <Feather
-          style={styles.icon}
-          name='smartphone'
-          size={24}
-          color='black'
-        />
-        <TextInput
-          placeholder='Telefone'
-          style={styles.textInput}
-          onChangeText={handleChangeNumber}
-          value={number}
-        />
-      </View>
+      <ContactInput
+        icon='user'
+        placeholder='Nome'
+        handleChange={handleChangeName}
+        value={name}
+      />
+      <ContactInput
+        icon='smartphone'
+        placeholder='Telefone'
+        handleChange={handleChangeNumber}
+        value={number}
+      />
       <View style={styles.inputButton}>
         {error && (
           <Text style={{ alignSelf: 'center', margin: 8, color: 'red' }}>
@@ -80,6 +62,7 @@ export default function App() {
         <FlatList
           data={contacts}
           renderItem={(contact) => <ContactItem contact={contact.item} />}
+          keyExtractor={(item, _) => item.id.toString()}
         />
       </View>
     </View>
@@ -93,23 +76,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     padding: 50,
-  },
-  inputView: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: 16,
-  },
-  icon: {
-    marginRight: 8,
-  },
-  textInput: {
-    width: '80%',
-    borderBottomColor: '#CCC',
-    borderBottomWidth: 1,
-    marginBottom: 4,
-    padding: 2,
-    textAlign: 'center',
   },
   inputButton: {
     width: '100%',
