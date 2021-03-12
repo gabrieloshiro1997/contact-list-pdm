@@ -39,8 +39,6 @@ export default function App() {
   const deleteContact = (keyDeleted) => {
     setContacts((currentContacts) => {
       return currentContacts.filter((contact) => {
-        console.log(contact);
-        console.log(keyDeleted);
         return contact.id !== keyDeleted;
       });
     });
