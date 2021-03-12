@@ -10,7 +10,7 @@ const ContactItem = (props) => {
     >
       <View style={styles.item}>
         <Text style={styles.contact}>Nome: {props.contact.name}</Text>
-        <Text style={styles.contact}>Número: {props.contact.number}</Text>
+        <Text style={styles.contact}>Telefone: {props.contact.phone}</Text>
       </View>
     </TouchableNativeFeedback>
   );

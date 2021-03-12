@@ -5,7 +5,7 @@ import ContactInput from './components/ContactInput';
 
 export default function App() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const [contacts, setContacts] = useState([]);
   const [countContact, setCountContact] = useState(0);
   const [error, setError] = useState(false);
@@ -14,12 +14,12 @@ export default function App() {
     setName(name);
   };
 
-  const handleChangeNumber = (number) => {
-    setNumber(number);
+  const handleChangePhone = (phone) => {
+    setPhone(phone);
   };
 
   const addContact = () => {
-    if (!name || !number) {
+    if (!name || !phone) {
       setError(true);
       return;
     }
@@ -28,11 +28,11 @@ export default function App() {
     const contact = {
       id: countContact,
       name,
-      number,
+      phone,
     };
     setContacts([...contacts, contact]);
     setName('');
-    setNumber('');
+    setPhone('');
     setError(false);
   };
 
@@ -55,8 +55,8 @@ export default function App() {
       <ContactInput
         icon='smartphone'
         placeholder='Telefone'
-        handleChange={handleChangeNumber}
-        value={number}
+        handleChange={handleChangePhone}
+        value={phone}
       />
       <View style={styles.inputButton}>
         {error && (
