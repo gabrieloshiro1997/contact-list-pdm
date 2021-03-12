@@ -36,6 +36,16 @@ export default function App() {
     setError(false);
   };
 
+  const deleteContact = (keyDeleted) => {
+    setContacts((currentContacts) => {
+      return currentContacts.filter((contact) => {
+        console.log(contact);
+        console.log(keyDeleted);
+        return contact.id !== keyDeleted;
+      });
+    });
+  };
+
   return (
     <View style={styles.container}>
       <ContactInput
@@ -61,7 +71,13 @@ export default function App() {
       <View style={{ width: '100%', alignSelf: 'center', marginTop: 16 }}>
         <FlatList
           data={contacts}
-          renderItem={(contact) => <ContactItem contact={contact.item} />}
+          renderItem={(contact) => (
+            <ContactItem
+              deleteContact={deleteContact}
+              keyToDelete={contact.item.id}
+              contact={contact.item}
+            />
+          )}
           keyExtractor={(item, _) => item.id.toString()}
         />
       </View>

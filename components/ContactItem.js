@@ -1,12 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
 
 const ContactItem = (props) => {
   return (
-    <View style={styles.item}>
-      <Text style={styles.contact}>Nome: {props.contact.name}</Text>
-      <Text style={styles.contact}>Número: {props.contact.number}</Text>
-    </View>
+    <TouchableNativeFeedback
+      delayPressIn={500}
+      delayLongPress={0}
+      onLongPress={() => props.deleteContact(props.keyToDelete)}
+    >
+      <View style={styles.item}>
+        <Text style={styles.contact}>Nome: {props.contact.name}</Text>
+        <Text style={styles.contact}>Número: {props.contact.number}</Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 
