@@ -8,7 +8,7 @@ import {
   FlatList,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { v4 as uuid } from 'uuid';
+import ContactItem from './components/ContactItem';
 
 export default function App() {
   const [name, setName] = useState('');
@@ -79,12 +79,7 @@ export default function App() {
       <View style={{ width: '100%', alignSelf: 'center', marginTop: 16 }}>
         <FlatList
           data={contacts}
-          renderItem={(contact) => (
-            <View style={styles.item}>
-              <Text style={styles.contact}>Nome: {contact.item.name}</Text>
-              <Text style={styles.contact}>Número: {contact.item.number}</Text>
-            </View>
-          )}
+          renderItem={(contact) => <ContactItem contact={contact.item} />}
         />
       </View>
     </View>
@@ -118,18 +113,5 @@ const styles = StyleSheet.create({
   },
   inputButton: {
     width: '100%',
-  },
-  item: {
-    padding: 12,
-    backgroundColor: '#e2edff',
-    borderColor: '#CCC',
-    borderWidth: 1,
-    marginBottom: 8,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  contact: {
-    color: '#000',
-    alignSelf: 'flex-start',
   },
 });
