@@ -21,6 +21,7 @@ const ContactItem = (props) => {
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{props.contact.name}</Text>
           <Text style={styles.phone}>{props.contact.phone}</Text>
+          <Text style={styles.date}>Data: {props.contact.date}</Text>
           <Text style={styles.latLng}>Lat: {props.contact.lat}</Text>
           <Text style={styles.latLng}>Lng: {props.contact.lng}</Text>
         </View>
@@ -59,15 +60,18 @@ const styles = StyleSheet.create({
   },
   phone: {
     color: '#777',
-    fontSize: 16,
+    fontSize: 18,
   },
   name: {
     color: 'black',
     fontSize: 20,
     marginBottom: 2,
   },
+  date: {
+    fontSize: 14,
+  },
   latLng: {
-    fontSize: 16,
+    fontSize: 14,
   },
 });
 

@@ -30,7 +30,7 @@ export const addContact = ({ name, phone, imageUri, lat, lng }) => {
       });
 
       const resultDB = await insertContact(name, phone, newPath, lat, lng);
-      console.log(resultDB);
+      console.log('resultDB.date', resultDB.date);
       dispatch({
         type: ADD_CONTACT,
         payload: {
@@ -40,6 +40,7 @@ export const addContact = ({ name, phone, imageUri, lat, lng }) => {
           imageUri,
           lat,
           lng,
+          date: resultDB.date,
         },
       });
     } catch (error) {

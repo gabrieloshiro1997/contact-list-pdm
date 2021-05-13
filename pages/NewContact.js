@@ -30,7 +30,6 @@ export default function NewContact(props) {
       setError(true);
       return;
     }
-    console.log('locationSelected', locationSelected);
     const contact = {
       id: Math.random() * 100,
       name,

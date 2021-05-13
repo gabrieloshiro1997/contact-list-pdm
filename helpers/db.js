@@ -23,9 +23,10 @@ export const insertContact = (name, phone, imageUri, lat, lng) => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO tb_contact (name, phone, imageUri, lat, lng) VALUES (?, ?, ?, ?, ?)',
+        `INSERT INTO tb_contact (name, phone, imageUri, lat, lng, date) VALUES (?, ?, ?, ?, ?, datetime('now'))`,
         [name, phone, imageUri, lat, lng],
         (_, result) => {
+          console.log('result', result);
           resolve(result);
         },
         (_, error) => {
@@ -49,7 +50,8 @@ export const init = () => {
             phone TEXT NOT NULL,
             imageUri TEXT NOT NULL,
             lat REAL NOT NULL,
-            lng REAL NOT NULL)`,
+            lng REAL NOT NULL,
+            date TEXT NOT NULL)`,
         [],
         () => {
           resolve();
