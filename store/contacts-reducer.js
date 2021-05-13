@@ -17,6 +17,18 @@ export default (state = initialState, action) => {
       return {
         contacts: state.contacts.concat(contact),
       };
+    case contactsActions.LIST_CONTACTS:
+      return {
+        contacts: action.contacts.map(
+          (contact) =>
+            new Contact(
+              contact.id.toString(),
+              contact.name,
+              contact.phone,
+              contact.imageUri
+            )
+        ),
+      };
     default:
       return state;
   }

@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import ContactItem from '../components/ContactItem';
 import CustomHeaderButton from '../components/CustomHeaderButton';
+import * as contactActions from '../store/contacts-actions';
 
 export default function Contacts() {
   const contacts = useSelector((state) => state.contacts.contacts);
-  console.log('contacts', contacts);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(contactActions.listContacts());
+  }, [dispatch]);
 
   return (
     <View style={styles.container}>
