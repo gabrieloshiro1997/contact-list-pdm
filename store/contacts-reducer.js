@@ -13,6 +13,7 @@ export default (state = initialState, action) => {
         action.payload.name,
         action.payload.phone
       );
+      console.log('contactReducer', action.payload);
       return {
         contacts: state.contacts.concat(contact),
       };

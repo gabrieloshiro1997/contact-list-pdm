@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
 const ContactItem = (props) => {
   return (
     <TouchableNativeFeedback
-      onLongPress={() => props.deleteContact(props.keyToDelete)}
+    // onLongPress={() => props.deleteContact(props.keyToDelete)}
     >
       <View style={styles.item}>
         <Text style={styles.contact}>Nome: {props.contact.name}</Text>

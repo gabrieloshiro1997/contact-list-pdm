@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, View, Text, FlatList } from 'react-native';
+import { Button, StyleSheet, View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
-import ContactItem from '../components/ContactItem';
 import ContactInput from '../components/ContactInput';
 
 import * as contactActions from '../store/contacts-actions';
 
-export default function Home() {
+export default function NewContact(props) {
   const dispatch = useDispatch();
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [contacts, setContacts] = useState([]);
-  const [countContact, setCountContact] = useState(0);
   const [error, setError] = useState(false);
 
   const handleChangeName = (name) => {
@@ -29,25 +26,17 @@ export default function Home() {
       return;
     }
 
-    setCountContact(countContact + 1);
     const contact = {
-      id: countContact,
+      id: Math.random() * 100,
       name,
       phone,
     };
+    console.log('contact', contact);
     dispatch(contactActions.addContact(contact));
-    setContacts([...contacts, contact]);
     setName('');
     setPhone('');
     setError(false);
-  };
-
-  const deleteContact = (keyDeleted) => {
-    setContacts((currentContacts) => {
-      return currentContacts.filter((contact) => {
-        return contact.id !== keyDeleted;
-      });
-    });
+    props.navigation.goBack();
   };
 
   return (
@@ -70,24 +59,17 @@ export default function Home() {
             Preencha todos os campos.
           </Text>
         )}
-        <Button title='Adicionar Contato' onPress={addContact} />
-      </View>
-      <View style={{ width: '100%', alignSelf: 'center', marginTop: 16 }}>
-        <FlatList
-          data={contacts}
-          renderItem={(contact) => (
-            <ContactItem
-              deleteContact={deleteContact}
-              keyToDelete={contact.item.id}
-              contact={contact.item}
-            />
-          )}
-          keyExtractor={(item, _) => item.id.toString()}
-        />
+        <Button title='Salvar' onPress={addContact} />
       </View>
     </View>
   );
 }
+
+NewContact.navigationOptions = () => {
+  return {
+    headerTitle: 'Adicionar contato',
+  };
+};
 
 const styles = StyleSheet.create({
   container: {
