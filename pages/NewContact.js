@@ -3,6 +3,7 @@ import { Button, StyleSheet, View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import ContactInput from '../components/ContactInput';
 import TakePicture from '../components/TakePicture';
+import GetLocation from '../components/GetLocation';
 
 import * as contactActions from '../store/contacts-actions';
 
@@ -12,6 +13,7 @@ export default function NewContact(props) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [imageUri, setImageUri] = useState('');
+  const [locationSelected, setLocationSelected] = useState();
 
   const [error, setError] = useState(false);
 
@@ -24,27 +26,34 @@ export default function NewContact(props) {
   };
 
   const addContact = () => {
-    if (!name || !phone || !imageUri) {
+    if (!name || !phone || !imageUri || !locationSelected) {
       setError(true);
       return;
     }
-
+    console.log('locationSelected', locationSelected);
     const contact = {
       id: Math.random() * 100,
       name,
       phone,
       imageUri,
+      lat: locationSelected.lat.lat,
+      lng: locationSelected.lat.lng,
     };
     dispatch(contactActions.addContact(contact));
     setName('');
     setPhone('');
     setImageUri('');
+    setLocationSelected(null);
     setError(false);
     props.navigation.goBack();
   };
 
   const takePicture = (image) => {
     setImageUri(image);
+  };
+
+  const getLocation = (lat, lng) => {
+    setLocationSelected({ lat, lng });
   };
   return (
     <View style={styles.container}>
@@ -67,6 +76,7 @@ export default function NewContact(props) {
           </Text>
         )}
         <TakePicture onTakePicture={takePicture} />
+        <GetLocation onLocationSelected={getLocation} />
         <Button title='Salvar' onPress={addContact} />
       </View>
     </View>

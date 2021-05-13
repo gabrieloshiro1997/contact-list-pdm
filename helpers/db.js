@@ -19,12 +19,12 @@ export const getContacts = () => {
   });
   return promise;
 };
-export const insertContact = (name, phone, imageUri) => {
+export const insertContact = (name, phone, imageUri, lat, lng) => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO tb_contact (name, phone, imageUri) VALUES (?, ?, ?)',
-        [name, phone, imageUri],
+        'INSERT INTO tb_contact (name, phone, imageUri, lat, lng) VALUES (?, ?, ?, ?, ?)',
+        [name, phone, imageUri, lat, lng],
         (_, result) => {
           resolve(result);
         },
@@ -47,7 +47,9 @@ export const init = () => {
             id INTEGER PRIMARY KEY,
             name TEXT NOT NULL,
             phone TEXT NOT NULL,
-            imageUri TEXT NOT NULL)`,
+            imageUri TEXT NOT NULL,
+            lat REAL NOT NULL,
+            lng REAL NOT NULL)`,
         [],
         () => {
           resolve();

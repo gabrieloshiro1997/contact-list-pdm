@@ -19,7 +19,7 @@ export const listContacts = () => {
   };
 };
 
-export const addContact = ({ id, name, phone, imageUri }) => {
+export const addContact = ({ name, phone, imageUri, lat, lng }) => {
   return async (dispatch) => {
     const fileName = imageUri.split('/').pop();
     const newPath = FileSystem.documentDirectory + fileName;
@@ -29,8 +29,8 @@ export const addContact = ({ id, name, phone, imageUri }) => {
         to: newPath,
       });
 
-      const resultDB = await insertContact(name, phone, newPath);
-
+      const resultDB = await insertContact(name, phone, newPath, lat, lng);
+      console.log(resultDB);
       dispatch({
         type: ADD_CONTACT,
         payload: {
@@ -38,6 +38,8 @@ export const addContact = ({ id, name, phone, imageUri }) => {
           name,
           phone,
           imageUri,
+          lat,
+          lng,
         },
       });
     } catch (error) {

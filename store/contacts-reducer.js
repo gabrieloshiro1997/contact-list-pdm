@@ -12,7 +12,9 @@ export default (state = initialState, action) => {
         action.payload.id,
         action.payload.name,
         action.payload.phone,
-        action.payload.imageUri
+        action.payload.imageUri,
+        action.payload.lat,
+        action.payload.lng
       );
       return {
         contacts: state.contacts.concat(contact),

@@ -10,7 +10,6 @@ import {
 import Colors from '../constants/Colors';
 
 const ContactItem = (props) => {
-  console.log('teste', props);
   return (
     <TouchableNativeFeedback style={styles.item}>
       <View style={styles.row}>
@@ -22,6 +21,8 @@ const ContactItem = (props) => {
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{props.contact.name}</Text>
           <Text style={styles.phone}>{props.contact.phone}</Text>
+          <Text style={styles.latLng}>Lat: {props.contact.lat}</Text>
+          <Text style={styles.latLng}>Lng: {props.contact.lng}</Text>
         </View>
       </View>
     </TouchableNativeFeedback>
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginBottom: 20,
+    alignItems: 'center',
   },
   image: {
     width: 70,
@@ -62,7 +64,10 @@ const styles = StyleSheet.create({
   name: {
     color: 'black',
     fontSize: 20,
-    marginBottom: 4,
+    marginBottom: 2,
+  },
+  latLng: {
+    fontSize: 16,
   },
 });
 
