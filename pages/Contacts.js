@@ -7,16 +7,17 @@ import CustomHeaderButton from '../components/CustomHeaderButton';
 
 export default function Contacts() {
   const contacts = useSelector((state) => state.contacts.contacts);
+  console.log('contacts', contacts);
 
   return (
     <View style={styles.container}>
-      <View>
-        <FlatList
-          data={contacts}
-          renderItem={(contact) => <ContactItem contact={contact.item} />}
-          keyExtractor={(item, _) => item.id.toString()}
-        />
-      </View>
+      <FlatList
+        data={contacts}
+        renderItem={(contact) => (
+          <ContactItem style={styles.item} contact={contact.item} />
+        )}
+        keyExtractor={(item, _) => item.id.toString()}
+      />
     </View>
   );
 }
@@ -43,5 +44,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     padding: 50,
+  },
+  item: {
+    paddingBottom: 30,
   },
 });

@@ -11,9 +11,9 @@ export default (state = initialState, action) => {
       const contact = new Contact(
         action.payload.id,
         action.payload.name,
-        action.payload.phone
+        action.payload.phone,
+        action.payload.imageUri
       );
-      console.log('contactReducer', action.payload);
       return {
         contacts: state.contacts.concat(contact),
       };

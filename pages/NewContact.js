@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, StyleSheet, View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import ContactInput from '../components/ContactInput';
+import TakePicture from '../components/TakePicture';
 
 import * as contactActions from '../store/contacts-actions';
 
@@ -10,6 +11,8 @@ export default function NewContact(props) {
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [imageUri, setImageUri] = useState('');
+
   const [error, setError] = useState(false);
 
   const handleChangeName = (name) => {
@@ -21,7 +24,7 @@ export default function NewContact(props) {
   };
 
   const addContact = () => {
-    if (!name || !phone) {
+    if (!name || !phone || !imageUri) {
       setError(true);
       return;
     }
@@ -30,15 +33,19 @@ export default function NewContact(props) {
       id: Math.random() * 100,
       name,
       phone,
+      imageUri,
     };
-    console.log('contact', contact);
     dispatch(contactActions.addContact(contact));
     setName('');
     setPhone('');
+    setImageUri('');
     setError(false);
     props.navigation.goBack();
   };
 
+  const takePicture = (image) => {
+    setImageUri(image);
+  };
   return (
     <View style={styles.container}>
       <ContactInput
@@ -59,6 +66,7 @@ export default function NewContact(props) {
             Preencha todos os campos.
           </Text>
         )}
+        <TakePicture onTakePicture={takePicture} />
         <Button title='Salvar' onPress={addContact} />
       </View>
     </View>

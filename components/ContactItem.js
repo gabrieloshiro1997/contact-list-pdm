@@ -1,14 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableNativeFeedback,
+} from 'react-native';
+
+import Colors from '../constants/Colors';
 
 const ContactItem = (props) => {
+  console.log('teste', props);
   return (
-    <TouchableNativeFeedback
-    // onLongPress={() => props.deleteContact(props.keyToDelete)}
-    >
-      <View style={styles.item}>
-        <Text style={styles.contact}>Nome: {props.contact.name}</Text>
-        <Text style={styles.contact}>Telefone: {props.contact.phone}</Text>
+    <TouchableNativeFeedback style={styles.item}>
+      <View style={styles.row}>
+        <Image
+          style={styles.image}
+          source={{ uri: props.contact.imageUri }}
+        ></Image>
+
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>{props.contact.name}</Text>
+          <Text style={styles.phone}>{props.contact.phone}</Text>
+        </View>
       </View>
     </TouchableNativeFeedback>
   );
@@ -16,17 +30,39 @@ const ContactItem = (props) => {
 
 const styles = StyleSheet.create({
   item: {
-    padding: 12,
-    backgroundColor: '#e2edff',
-    borderColor: '#CCC',
-    borderWidth: 1,
-    marginBottom: 8,
-    borderRadius: 8,
+    borderBottomColor: '#CCC',
+    borderBottomWidth: 1,
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    flexDirection: 'row',
     alignItems: 'center',
   },
-  contact: {
-    color: '#000',
-    alignSelf: 'flex-start',
+  row: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  image: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: '#CCC',
+    borderColor: Colors.primary,
+    borderWidth: 1,
+  },
+  infoContainer: {
+    marginLeft: 24,
+    width: 250,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  phone: {
+    color: '#777',
+    fontSize: 16,
+  },
+  name: {
+    color: 'black',
+    fontSize: 20,
+    marginBottom: 4,
   },
 });
 
