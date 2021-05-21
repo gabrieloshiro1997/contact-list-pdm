@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
+import * as firebase from 'firebase';
 import ContactInput from '../components/ContactInput';
 import TakePicture from '../components/TakePicture';
 import GetLocation from '../components/GetLocation';
-
+import ENV from '../env';
 import * as contactActions from '../store/contacts-actions';
 
-export default function NewContact(props) {
-  const dispatch = useDispatch();
+if (!firebase.apps.length) {
+  firebase.initializeApp(ENV);
+}
 
+const db = firebase.firestore();
+
+export default function NewContact(props) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [imageUri, setImageUri] = useState('');
   const [locationSelected, setLocationSelected] = useState();
+
+  const dispatch = useDispatch();
 
   const [error, setError] = useState(false);
 
@@ -38,12 +45,15 @@ export default function NewContact(props) {
       lat: locationSelected.lat.lat,
       lng: locationSelected.lat.lng,
     };
-    dispatch(contactActions.addContact(contact));
+
+    db.collection('lembretes').add(contact);
+
     setName('');
     setPhone('');
     setImageUri('');
     setLocationSelected(null);
     setError(false);
+    dispatch(contactActions.listContacts());
     props.navigation.goBack();
   };
 

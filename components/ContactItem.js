@@ -1,17 +1,47 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TouchableNativeFeedback,
+  Alert,
 } from 'react-native';
-
+import * as firebase from 'firebase';
+import * as contactActions from '../store/contacts-actions';
 import Colors from '../constants/Colors';
 
+if (!firebase.apps.length) {
+  firebase.initializeApp(ENV);
+}
+
+const db = firebase.firestore();
 const ContactItem = (props) => {
+  const dispatch = useDispatch();
+
+  const removeContact = (id) => {
+    console.log(id);
+    Alert.alert('Remover', 'Remover contato?', [
+      { text: 'Cancelar' },
+      {
+        text: 'Sim',
+        onPress: () =>
+          db
+            .collection('lembretes')
+            .doc(id)
+            .delete()
+            .then(() => {
+              dispatch(contactActions.listContacts());
+            }),
+      },
+    ]);
+  };
   return (
-    <TouchableNativeFeedback style={styles.item}>
+    <TouchableNativeFeedback
+      style={styles.item}
+      onLongPress={() => removeContact(props.contact.id)}
+    >
       <View style={styles.row}>
         <Image
           style={styles.image}
